@@ -1,0 +1,30 @@
+[project]
+name = "skynetch"
+version = "0.1.0"
+description = "CLI to fetch, export, and train ML models using flight data APIs."
+authors = [{ name = "Furkan Ozgultekin", email = "furkanozgultekin@gmail.com" }]
+dependencies = [
+    "pandas",
+    "scikit-learn",
+    "joblib",
+    "click",
+    "SQLAlchemy",
+    "python-dotenv",
+    "wheel",
+    "Cython"
+
+]
+
+[tool.setuptools]
+package-dir = {}  # Remove this line or set to empty
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+skynetch = "src.cmd.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
