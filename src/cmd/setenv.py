@@ -3,7 +3,7 @@ from pathlib import Path
 from dotenv import set_key, load_dotenv
 
 ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
-
+print(ENV_PATH)
 @click.command()
 @click.argument("key")
 @click.argument("value")

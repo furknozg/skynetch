@@ -11,7 +11,8 @@ dependencies = [
     "SQLAlchemy",
     "python-dotenv",
     "wheel",
-    "Cython"
+    "Cython",
+    "requests"
 
 ]
 
