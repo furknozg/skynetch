@@ -3,6 +3,7 @@ import json
 import hashlib
 from datetime import datetime, timedelta
 from pathlib import Path
+from typing import List, Optional
 from src.app.ports.flight_cache import CacheRepository
 
 class FlightSearchCacheRepository(CacheRepository):
@@ -61,3 +62,13 @@ class FlightSearchCacheRepository(CacheRepository):
                 VALUES (?, ?, ?, ?)
             """, (query_hash, json.dumps(response), timestamp, query_date))
             conn.commit()
+    def export_cached_responses(self, query_date: Optional[str] = None) -> List[dict]:
+        with self._connect() as conn:
+            cursor = conn.cursor()
+            if query_date:
+                cursor.execute("SELECT response FROM flight_cache WHERE query_date = ?", (query_date,))
+            else:
+                cursor.execute("SELECT response FROM flight_cache")
+            
+            rows = cursor.fetchall()
+            return [json.loads(row[0]) for row in rows]
