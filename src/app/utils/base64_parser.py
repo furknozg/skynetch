@@ -72,16 +72,10 @@ def parse_itinerary(itinerary):
     carrier_name = first_segment.get('carrier', {}).get('name')
 
     booking_options = itinerary.get('bookingOptions', {}).get('edges', [])
-    print()
-    print()
-    print()
-    print()
-    print(booking_options)
-
     url = 'https://www.kiwi.com' + booking_options[0]['node']['bookingUrl'] if booking_options else ''
 
 
-    price_change_likely = first_segment.get('provider', {}).get('hasHighProbabilityOfPriceChange')
+    price_change_likely = first_segment.get('provider', {}).get('hasHighProbabilityOfPriceChange', False)
     
     is_hidden_city = first_segment.get('travelHack', {}).get('isTrueHiddenCity', False)
     is_virtual_interlining = first_segment.get('travelHack', {}).get('isVirtualInterlining', False)

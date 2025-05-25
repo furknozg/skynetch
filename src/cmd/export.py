@@ -39,12 +39,7 @@ def main(query_date, output):
     with open(output, mode='w', newline='', encoding='utf-8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
-
-        for idx, result in enumerate(results):
-            print(f"Result #{idx}: keys = {list(result.keys())}")
-            print(f"Sample content: {str(result)[:500]}")  # Print first 500 chars for readability
-            break  # Remove or comment this later to see more items
-
+        
         for result in results:
             # The cached response string is probably in a certain key,
             # adjust 'cached_response_field' to your actual dict key holding this string
