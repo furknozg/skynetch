@@ -15,8 +15,9 @@ from src.app.services.search_service import SearchService
 @click.option('--adults', default=1, type=int, help='Number of adults')
 @click.option('--children', default=0, type=int, help='Number of children')
 @click.option('--infants', default=0, type=int, help='Number of infants')
+@click.option('--force-refresh', is_flag=True, default=False, help='Force refresh the cache and make a fresh request')
 def main(source, destination, outbound_start, outbound_end, price_start, price_end, days,
-                   adults, children, infants):
+                   adults, children, infants, force_refresh):
     """Search one-way flights using Kiwi API"""
     client = KiwiFlightSearchClient()
     cache_repo = FlightSearchCacheRepository()  # defaults to flight_cache.db in cwd
@@ -36,7 +37,7 @@ def main(source, destination, outbound_start, outbound_end, price_start, price_e
     )
 
     try:
-        results = service.search(params)
+        results = service.search(params, bypass_cache=force_refresh)
         click.echo(json.dumps(results, indent=2))
     except Exception as e:
         click.echo(f"Error: {e}", err=True)

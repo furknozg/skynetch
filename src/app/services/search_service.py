@@ -9,15 +9,16 @@ class SearchService:
         self.cache_repo = cache_repo
 
 
-    def search(self, search_params: Dict[str, Any]) -> Dict[str, Any]:
+    def search(self, search_params: Dict[str, Any], bypass_cache: bool) -> Dict[str, Any]:
         # Extract the outbound start date as the "query_date"
         query_date = search_params.get("outbound_start", "")[:10]  # e.g., "2023-07-22"
-        print("Pre Cache")
-        cached = self.cache_repo.get_cached_response(search_params, query_date, max_age_minutes=1440)
-        if cached is not None:
-            print("Cache hit!")
-            return cached
-        print("Cache miss, calling API")
+        
+        if not bypass_cache:
+            cached = self.cache_repo.get_cached_response(search_params, query_date, max_age_minutes=1440)
+            if cached is not None:
+                return cached
+    
+
         fresh_result = self.api_client.search_one_way_flights(search_params)
         self.cache_repo.cache_response(search_params, fresh_result, query_date)
         return fresh_result

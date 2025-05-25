@@ -71,6 +71,22 @@ def parse_itinerary(itinerary):
     arrival_time = first_segment.get('destination', {}).get('localTime')
     carrier_name = first_segment.get('carrier', {}).get('name')
 
+    booking_options = itinerary.get('bookingOptions', {}).get('edges', [])
+    print()
+    print()
+    print()
+    print()
+    print(booking_options)
+
+    url = 'https://www.kiwi.com' + booking_options[0]['node']['bookingUrl'] if booking_options else ''
+
+
+    price_change_likely = first_segment.get('provider', {}).get('hasHighProbabilityOfPriceChange')
+    
+    is_hidden_city = first_segment.get('travelHack', {}).get('isTrueHiddenCity', False)
+    is_virtual_interlining = first_segment.get('travelHack', {}).get('isVirtualInterlining', False)
+    is_throwaway_ticket = first_segment.get('travelHack', {}).get('isThrowawayTicket', False)
+
     # Return a summary dict
     return {
         "itinerary_id": itinerary_id,
@@ -86,5 +102,10 @@ def parse_itinerary(itinerary):
         "arrival_airport": arrival_airport,
         "departure_time": departure_time,
         "arrival_time": arrival_time,
-        "carrier_name": carrier_name
+        "carrier_name": carrier_name,
+        "booking_url": url,
+        "is_throwaway_ticket": is_throwaway_ticket,
+        "is_virtual_interlining": is_virtual_interlining,
+        "is_hidden_city": is_hidden_city,
+        "price_change_likely": price_change_likely
     }

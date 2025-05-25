@@ -30,7 +30,11 @@ def main(query_date, output):
 
     fieldnames = ['itinerary_id', 'share_id', 'price_usd', 'price_before_discount', 'price_eur', 
               'provider', 'included_checked_bags', 'included_hand_bags', 'flight_code', 
-              'departure_airport', 'arrival_airport', 'departure_time', 'arrival_time', 'carrier_name']
+              'departure_airport', 'arrival_airport', 'departure_time', 'arrival_time', 'carrier_name', "booking_url", 
+              "price_change_likely",
+              "is_hidden_city",
+              "is_virtual_interlining",
+              "is_throwaway_ticket"]
 
     with open(output, mode='w', newline='', encoding='utf-8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
