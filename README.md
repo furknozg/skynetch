@@ -163,6 +163,14 @@ Exported CSV includes:
 - RapidAPI subscription to Kiwi.com Cheap Flights API
 - API key must be set via `skynetch setenv RAPIDAPI_KEY`
 
+## NOTES:
+
+- If you have downloaded the packed binary, it is advised that you put it under /bin/skynetch folder, (create folder if necessary) and change the file name to skynetch
+- You may need to execute
+  ```bash
+  chmod +x skynetch
+  ```
+- If you download the source, be sure to "pip install ."
 ## Use Cases
 
 - **Travel Agencies**: Bulk price comparison and route analysis
